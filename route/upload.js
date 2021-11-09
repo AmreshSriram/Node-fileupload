@@ -53,18 +53,18 @@ router.post(
         res.status(200).send("success");
       })
       .catch((error) => {
-        res.status(400).send({ error: error.message });
+        res.status(400).send("failed to upload file");
       });
   },
   (error, req, res, next) => {
-    res.status(400).send({ error: "please upload image lasser than 1 Mb" });
+    res.status(400).send({ error: "upload less than 1 mb" +" "+"&"+" "+error.message });
   }
 );
 
 // For Multiple image uplaod
 router.post(
   "/uploadBulkImage",
-  imageUpload.array("images", 4),
+  imageUpload.array("images", ),
   (req, res) => {
     // console.log(req)
     const img = req.files.map(file => "/images/" + file.filename);
@@ -77,7 +77,7 @@ router.post(
         res.status(200).send("success");
       })
       .catch((error) => {
-        res.status(400).send({ error: error.message });
+        res.status(400).send("failed to upload file");
       });
   },
   (error, req, res, next) => {
@@ -129,11 +129,11 @@ router.post(
         res.status(200).send("success");
       })
       .catch((error) => {
-        res.status(400).send({ error: error.message });
+        res.status(400).send("failed to upload file");
       });
   },
   (error, req, res, next) => {
-    res.status(400).send({ error: "please upload video lasser than 10 Mb" });
+    res.status(400).send({ error: "upload less than 10 mb" +" "+"&"+" "+error.message  } );
   }
 );
 
@@ -156,12 +156,12 @@ const audioStorage = multer.diskStorage({
 const audioUpload = multer({
   storage: audioStorage,
   limits: {
-    fileSize: 10000000, // 10000000 Bytes = 10 MB
+    fileSize: 1000000, // 10000000 Bytes = 10 MB
   },
   fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(mp3)$/)) {
       // upload only mp4 and mkv format
-      return cb(new Error("Please upload a audio in mp3 format"));
+      return cb(new Error("Please upload a Video in mp3 format"));
     }
     cb(undefined, true);
   },
@@ -181,11 +181,11 @@ router.post(
         res.status(200).send("success");
       })
       .catch((error) => {
-        res.status(400).send({ error: error.message });
+        res.status(400).send("failed to upload file");
       });
   },
-  (req, res) => {
-    res.status(400).send({ error: "please upload video lasser than 10 Mb" });
+  (error, req, res, next) => {
+    res.status(400).send({ error: "upload less than 1 mb" +" "+"&"+" "+error.message  } );
   }
 );
 
