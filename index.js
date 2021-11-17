@@ -10,7 +10,7 @@ const uploadRoute = require('./route/upload');
 global.__basedir = __dirname;
 
 
-mongoose.connect('mongodb+srv://amresh45:tommyshelby@cluster0.kaaim.mongodb.net/img?retryWrites=true&w=majority', {
+mongoose.connect('mongo_db_uri', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }, (err) => {
@@ -28,7 +28,7 @@ app.use(
         resave: true,
         saveUninitialized: false,
         store: MongoStore.create({
-            mongoUrl: 'mongodb+srv://amresh45:tommyshelby@cluster0.kaaim.mongodb.net/img?retryWrites=true&w=majority'
+            mongoUrl: 'mongo_db_uri'
   })
 }));
 
